@@ -4,6 +4,17 @@ This repository is a small engineering case study about designing browser-contro
 
 It is not a browser automation tutorial. The focus is the decision model behind safe and efficient agent behavior when browser state, user preferences, sensitive information, and failure handling can conflict.
 
+## Scope
+
+The concrete environment behind this case is:
+
+- Windows users
+- Codex as the AI agent runtime
+- Microsoft Edge as the user's real browser
+- `chrome@openai-bundled` as the Codex browser-extension control channel
+
+In this setup, `@chrome` should be treated as the Codex extension route for controlling Edge, not as an instruction to switch to Google Chrome or an isolated in-app browser.
+
 ## Core Model
 
 The final rule set is organized around four decision categories:

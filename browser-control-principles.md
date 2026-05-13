@@ -6,6 +6,8 @@ Browser control is governed by four decision categories: **Routing**, **Risk**, 
 
 Use the user's real browser extension control channel when browser state, login sessions, or existing tabs matter.
 
+For Windows users controlling Microsoft Edge through Codex, `@chrome` should route through the `chrome@openai-bundled` Node extension backend. Do not decide that browser control is unavailable only because the current tool list does not expose an explicit `chrome.*` tool. First initialize the extension backend and run a lightweight connection check such as `browser.user.openTabs()`.
+
 Tool names may not match the actual browser in use. If a tool is named after one browser but the user's configured workflow routes through another real browser extension channel, follow the configured user environment instead of switching to a generic fallback browser.
 
 Do not silently fall back to an in-app or isolated browser when the user explicitly expects control of their real browser environment.
@@ -28,7 +30,11 @@ Only run layered diagnosis after connection or control fails.
 
 When failure occurs, report the layer where it appears to be blocked:
 
-- extension connection
+- plugin loading
+- backend initialization
+- Edge runtime state
+- extension response
+- Native Host
 - browser state
 - page loading
 - login or anti-abuse flow

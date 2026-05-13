@@ -122,10 +122,10 @@ The final public rule set is:
 
 Browser control is governed by four decision categories: Routing, Risk, Efficiency, and Failure Handling.
 
-- Routing: use the user's real browser extension control channel when browser state, login sessions, or existing tabs matter. Do not silently fall back to an isolated browser when the user expects their real browser environment.
+- Routing: use the user's real browser extension control channel when browser state, login sessions, or existing tabs matter. For Windows users controlling Microsoft Edge through Codex, `@chrome` should route through the `chrome@openai-bundled` Node extension backend. Do not decide that browser control is unavailable only because the current tool list does not expose an explicit `chrome.*` tool; first initialize the extension backend and run a lightweight connection check such as `browser.user.openTabs()`. Do not silently fall back to an isolated browser when the user expects their real browser environment.
 - Risk: before actions that may change account state, create costs, expose sensitive information, or affect external systems, confirm the necessary state. Sensitive data should only be read or repeated after explicit user authorization.
 - Efficiency: trusted state can be reused, but it expires when the site changes, the controlled tab changes, the page redirects unexpectedly, a login challenge appears, a CAPTCHA appears, a permission dialog appears, or the next action becomes high risk. Low-risk actions should not require heavy preflight checks.
-- Failure Handling: only run layered diagnosis after connection or control fails, and report whether the block appears to be extension connection, browser state, page loading, login or anti-abuse flow, element targeting, or permission boundary.
+- Failure Handling: only run layered diagnosis after connection or control fails, and report whether the block appears to be plugin loading, backend initialization, Edge runtime state, extension response, Native Host, page loading, login or anti-abuse flow, element targeting, or permission boundary.
 ```
 
 ## 8. Human-Agent Co-Design
